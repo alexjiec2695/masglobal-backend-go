@@ -17,10 +17,11 @@ func NewEmployeeRouter(handler *handlers.EmployeeHandler) *EmployeeRouter {
 }
 
 func (h *EmployeeRouter) registry(router *gin.Engine) {
+
 	base := BasePath
 	group := router.Group(base)
 
 	group.GET("employees", h.handler.Employee)
-	group.GET("employee/:id", h.handler.EmployeeById)
+	group.GET("employees/:id", h.handler.EmployeeById)
 
 }

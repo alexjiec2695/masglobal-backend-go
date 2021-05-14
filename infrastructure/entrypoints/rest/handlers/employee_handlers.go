@@ -22,6 +22,14 @@ func NewEmployeeHandler(getAllEmployeesUseCase *employee.GetAllEmployeesUseCase,
 
 func (e *EmployeeHandler) Employee(ctx *gin.Context) {
 
+
+	ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	ctx.Writer.Header().Set("Access-Control-Max-Age", "86400")
+	ctx.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+	ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	ctx.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
+	ctx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+
 	employees, err := e.getAllEmployeesUseCase.GetAllEmployees()
 
 	if err != nil {
@@ -44,10 +52,17 @@ func (e *EmployeeHandler) Employee(ctx *gin.Context) {
 		}
 	}
 
-	ctx.JSON(http.StatusOK, rs.NewResponse(response))
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (e *EmployeeHandler) EmployeeById(ctx *gin.Context) {
+
+	ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	ctx.Writer.Header().Set("Access-Control-Max-Age", "86400")
+	ctx.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+	ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	ctx.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
+	ctx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 
 	ID, err := strconv.Atoi(ctx.Param("id"))
 
@@ -61,7 +76,9 @@ func (e *EmployeeHandler) EmployeeById(ctx *gin.Context) {
 		panic(err)
 	}
 
-	response := rs.EmployeesRsDto{
+	response := make([]rs.EmployeesRsDto, 1)
+
+	response[0] = rs.EmployeesRsDto{
 		Id:               employee.Id,
 		RoleName:         employee.RoleName,
 		MonthlySalary:    employee.MonthlySalary,
@@ -73,6 +90,6 @@ func (e *EmployeeHandler) EmployeeById(ctx *gin.Context) {
 		AnnualSalary:     employee.AnnualSalary,
 	}
 
-	ctx.JSON(http.StatusOK, rs.NewResponse(response))
+	ctx.JSON(http.StatusOK, response)
 
 }

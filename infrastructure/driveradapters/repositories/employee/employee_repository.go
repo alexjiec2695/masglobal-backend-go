@@ -30,5 +30,5 @@ func (repository *Repository) GetEmployeeById(ID int) (entities.Employee, error)
 		}
 	}
 
-	return entities.Employee{}, nil
+	return entities.Employee{Name: "null"}, nil
 }

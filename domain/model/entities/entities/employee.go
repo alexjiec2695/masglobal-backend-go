@@ -17,7 +17,7 @@ const (
 	MonthlySalaryEmployee = "MonthlySalaryEmployee"
 )
 
-func (e *Employee) CalculateAnnualSalary() {
+func (e *Employee) CalculateAnnualSalary() *Employee{
 
 	if e.ContractTypeName == HourlySalaryEmployee {
 		e.AnnualSalary = 120 * e.HourlySalary * 12
@@ -26,4 +26,6 @@ func (e *Employee) CalculateAnnualSalary() {
 	if e.ContractTypeName == MonthlySalaryEmployee {
 		e.AnnualSalary = e.MonthlySalary * 12
 	}
+
+	return e
 }
